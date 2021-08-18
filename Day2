@@ -1,4 +1,4 @@
-question no. 1.
+question no. 1. Search in Rotated Sorted Array
 class Solution {
     public int search(int[] nums, int target) {
         
@@ -32,7 +32,8 @@ class Solution {
     }
 }
 
-Question no. 2
+Question no. 2. Ciel and A-B Problem Problem Code: CIELAB
+
 /* package codechef; // don't place package name! */
 
 import java.util.*;
