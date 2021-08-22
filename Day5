@@ -1,1 +1,58 @@
+// 1, Game of chef - Kadane's algorithm
+
+// 2. Climbing stairs
+class Solution {
+    public int climbStairs(int n) {
+        
+        int memo[] = new int[n+1];
+        if(n==1)
+            return 1;
+        if(n==2)
+            return 2;
+        memo[0] = 0;
+        memo[1] = 1;
+        memo[2] = 2;
+        
+        for(int i=3; i<=n; i++)
+            memo[i] = memo[i-1] + memo[i-2];
+        return memo[n];
+    }
+}
+
+// 3. Unique Paths
+
+class Solution {
+    public int uniquePaths(int m, int n) {
+        HashMap<String, Integer> map = new HashMap<>();
+        int ans= memo(0, 0, m-1, n-1, map);
+        return ans;
+    }
+    
+    // Using memoization
+    public static int memo(int si, int sj, int ei, int ej, HashMap<String, Integer>map){
+        if(si == ei && sj==ej)
+            return 1;
+        if(si>ei || sj>ej)
+            return 0;
+        
+        String key = si+"#"+sj;
+        if(map.containsKey(key))
+            return map.get(key);
+        
+        int op1= memo(si+1, sj, ei, ej, map);
+        int op2= memo(si, sj+1, ei, ej, map);
+        map.put(key, op1+op2);
+        return op1+op2;
+    
+        // Using recursion nut time limit exceeded
+    /*public static int rec(int si, int sj, int ei, int ej){
+        if(si == ei && sj==ej)
+            return 1;
+        if(si>ei || sj>ej)
+            return 0;
+        int op1= rec(si+1, sj, ei, ej);
+        int op2= rec(si, sj+1, ei, ej);
+        return op1+op2;  */
+    }
+}
 
