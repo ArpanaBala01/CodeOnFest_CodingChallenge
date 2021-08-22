@@ -1,0 +1,65 @@
+// 1. Reverse String
+class Solution {
+    public void reverseString(char[] s) {
+        // Without using Recursion
+        int i=0, j=s.length-1;
+        while(i<j){
+            char temp = s[i];
+            s[i]=s[j];
+            s[j]=temp;
+            i++;
+            j--; 
+        }
+    }      
+}
+
+
+// 2. Fibonacci Series
+class Solution {
+    public int fib(int n) {
+        if(n <= 1)
+            return n;
+        return fib(n-1) +fib(n-2);
+    }
+}
+
+// 2. Add Two Numbers
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode head = new ListNode(0);
+        ListNode result = head;
+        
+        int carry = 0;
+        int sum = 0;
+        
+        while(l1 != null || l2 != null || carry != 0){
+            sum = 0;
+            
+            if(l1!=null){
+                sum = sum + l1.val;
+                l1 = l1.next;
+            }
+            
+            if(l2 != null){
+                sum = sum + l2.val;
+                l2 = l2.next;
+            }
+            sum = sum + carry;
+            carry = sum/10;
+            
+            result.next = new ListNode(sum%10);
+            result = result.next;
+        }
+        return head.next;
+    }
+}
