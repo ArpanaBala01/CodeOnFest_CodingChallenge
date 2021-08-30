@@ -1,0 +1,102 @@
+// 1. Kth Largest Element of an Array (Leetcode Problem No.215 )
+
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        
+        // T.c = O(nlogn), S.c = O(1)
+       /* Arrays.sort(nums);
+        return nums[nums.length - k];*/
+        
+        // We can reduce t.c using quick selection sort
+        // avg t.c = O(n), S.C = O(n) Worst T.c = O(n*n)
+        return quickSelect(nums, 0, nums.length-1, k);
+        
+    }
+    int quickSelect(int[] nums, int left, int right, int k){
+        int pivot = left;
+        
+        for(int i=left; i<right; i++){
+            if(nums[i]<nums[right]){
+                swap(nums, pivot++, i);
+            }
+        }
+        
+        swap(nums, pivot, right);
+        int count = right-pivot+1;
+        
+        if(count == k){
+            return nums[pivot];
+        }
+        else if(count>k)
+            return quickSelect(nums, pivot+1, right, k);
+        return quickSelect(nums, left, pivot-1, k-count);
+    }
+    
+    void swap(int[] nums, int l, int r){
+        int temp = nums[l];
+        nums[l] = nums[r];
+        nums[r] =temp;
+    }
+}
+
+// 2. Relative Ranks (LeetCode Problem No. 506)
+
+class Solution {
+    public String[] findRelativeRanks(int[] score) {
+        String[] result = new String[score.length];
+        
+        int[] scoreCopy = Arrays.copyOf(score, score.length);
+        Arrays.sort(scoreCopy);
+        
+        HashMap<Integer,Integer> scoreIndex = new HashMap<Integer,Integer>();
+        for(int i = 0; i < scoreCopy.length; ++i)
+            scoreIndex.put(scoreCopy[i], i);
+        
+        // Sorting helps with order  e.g. [3,4,8,9,10] - (len-idx = ranking too ) - [0,1,2,3,4]
+        // score = [10,3,8,9,4]
+        String[] medals = new String[]{"Gold Medal", "Silver Medal", "Bronze Medal"};
+        for(int i = 0; i < score.length; ++i)
+        {
+            int curScore = score[i];
+            int rank = (score.length - scoreIndex.get(curScore));
+            if(rank > 3)
+                result[i] = String.valueOf(rank); // preferrable to (rank + "" ) : more proper and uses library support!
+            else
+                result[i] = medals[rank - 1]; // faster than a switch-case when dealing with int indices! 
+        }
+
+        
+        return result;
+    }
+}
+
+// 3. Small Factorial ( CodeChef Problem )
+
+/* package codechef; // don't place package name! */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{   
+	    try{
+     		// your code goes here
+		Scanner sc = new Scanner(System.in);
+		int Tcases = sc.nextInt();
+		for(int i=1; i<=Tcases; i++){
+		    int num = sc.nextInt();
+		    int fact = 1;
+		    for(int j=1; j<=num; j++){
+		        fact *= j; 
+		    }
+		    System.out.println(fact);
+		
+		}
+	    }
+	    catch(Exception e){}
+	}
+}
