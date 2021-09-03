@@ -1,5 +1,60 @@
 // 1. Sort Colours
+class Solution {
+    public void sortColors(int[] nums) {
+        int left = 0, right = nums.length-1, i = 0;
+        
+        while(i <= right){
+            if(nums[i] == 0){
+                nums[i] = nums[left];
+                nums[left] = 0;
+                left ++;
+            }
+            
+            if(nums[i] == 2){
+                nums[i] = nums[right];
+                nums[right] = 2;
+                right --;
+                i--;
+                
+            } 
+            i++;
+        }
+        
+        
+    }
+}
 
 // 2. Remove Nth node from end of the list
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        for(int i=1; i<=n; i++)
+            fast = fast.next;
+        
+        if(fast == null){
+            head = head.next;
+            return head;
+        }
+        
+        while(fast.next != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next = slow.next.next;
+        return head;
+    }
+}
 
 // 3. BINTREE
